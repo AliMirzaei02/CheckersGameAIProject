@@ -58,7 +58,7 @@ play_again_pos = (WIDTH // 2 - play_again_text.get_width() // 2, HEIGHT//2)
 
 
 while run:
-    background = pygame.transform.scale(pygame.image.load('assets/background.jpg'), (WIDTH, HEIGHT))
+    background = pygame.transform.scale(pygame.image.load('items/background.jpg'), (WIDTH, HEIGHT))
     clock.tick(FPS)
     
     if game.turn == WHITE:
