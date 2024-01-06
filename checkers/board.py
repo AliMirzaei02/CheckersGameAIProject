@@ -39,3 +39,42 @@ class Board:
 
     def get_piece(self, row, col):
         return self.board[row][col]
+
+    def create_board(self):
+        for row in range(ROWS):
+            self.board.append([])
+            for col in range(COLS):
+                if col % 2 == ((row +  1) % 2):
+                    if row < 3:
+                        self.board[row].append(Piece(row, col, WHITE))
+                    elif row > 4:
+                        self.board[row].append(Piece(row, col, BLACK))
+                    else:
+                        self.board[row].append(0)
+                else:
+                    self.board[row].append(0)
+        
+    def draw(self, win):
+        self.draw_squares(win)
+        for row in range(ROWS):
+            for col in range(COLS):
+                piece = self.board[row][col]
+                if piece != 0:
+                    piece.draw(win)
+
+    def remove(self, pieces):
+        for piece in pieces:
+            self.board[piece.row][piece.col] = 0
+            if piece != 0:
+                if piece.color == BLACK:
+                    self.black_left -= 1
+                else:
+                    self.white_left -= 1
+    
+    def winner(self):
+        if self.black_left <= 0:
+            return WHITE
+        elif self.white_left <= 0:
+            return BLACK
+        
+        return None
