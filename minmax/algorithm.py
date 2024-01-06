@@ -5,7 +5,7 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 
 
-def Minmax(position, depth, max_player, game):
+def minMax(position, depth, max_player, game):
     if depth == 0 or position.winner() != None:
         return position.evaluate(), position
 
@@ -13,7 +13,7 @@ def Minmax(position, depth, max_player, game):
         maxEval = float('-inf')
         best_move = None
         for move in soccessors(position, WHITE, game):
-            evaluation = Minmax(move, depth - 1, False, game)[0]
+            evaluation = minMax(move, depth - 1, False, game)[0]
             maxEval = max(maxEval, evaluation)
             if maxEval == evaluation:
                 best_move = move
@@ -23,7 +23,7 @@ def Minmax(position, depth, max_player, game):
         minEval = float('inf')
         best_move = None
         for move in soccessors(position, BLACK, game):
-            evaluation = Minmax(move, depth - 1, True, game)[0]
+            evaluation = minMax(move, depth - 1, True, game)[0]
             minEval = min(minEval, evaluation)
             if minEval == evaluation:
                 best_move = move
