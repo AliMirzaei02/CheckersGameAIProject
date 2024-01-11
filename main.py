@@ -32,10 +32,10 @@ start_text = font.render("Start Game", True, (255, 255, 255))
 quit_text = font.render("Quit", True, (255, 255, 255))
 
 game_header2_text = font.render("Set the depth level of your AI opponent", True, (255, 255, 255))
-Easy_text = font.render("Easy", True, (255, 255, 255))
-Normal_text = font.render("Normal", True, (255, 255, 255))
-Hard_text = font.render("Hard", True, (255, 255, 255))
-legend_text = font.render("legend", True, (255, 255, 255))
+easy_text = font.render("Easy", True, (255, 255, 255))
+normal_text = font.render("Normal", True, (255, 255, 255))
+hard_text = font.render("Hard", True, (255, 255, 255))
+legend_text = font.render("Legend", True, (255, 255, 255))
 
 White_text = font.render("White Won The Game!", True, (255, 255, 255))
 Black_text = font.render("Black Won The Game!", True, (255, 255, 255))
@@ -47,10 +47,10 @@ start_pos = (WIDTH // 2 - start_text.get_width() // 2, HEIGHT//2)
 quit_pos = (WIDTH // 2 - quit_text.get_width() // 2, HEIGHT//2 + HEIGHT//18)
 
 game_header2_pos = (WIDTH // 2 - game_header2_text.get_width() // 2, HEIGHT//2.5)
-Easy_pos = (1*SQUARE_SIZE - Easy_text.get_width()//2, HEIGHT//2 - Easy_text.get_height()//2)
-Normal_pos = (3*SQUARE_SIZE - Normal_text.get_width()//2, HEIGHT//2 - Easy_text.get_height()//2)
-Hard_pos = (5*SQUARE_SIZE - Hard_text.get_width()//2, HEIGHT//2 - Easy_text.get_height()//2)
-legend_pos = (7*SQUARE_SIZE - legend_text.get_width()//2, HEIGHT//2 - Easy_text.get_height()//2)
+easy_pos = (1*SQUARE_SIZE - easy_text.get_width()//2, HEIGHT//2 - easy_text.get_height()//2)
+normal_pos = (3*SQUARE_SIZE - normal_text.get_width()//2, HEIGHT//2 - normal_text.get_height()//2)
+hard_pos = (5*SQUARE_SIZE - hard_text.get_width()//2, HEIGHT//2 - hard_text.get_height()//2)
+legend_pos = (7*SQUARE_SIZE - legend_text.get_width()//2, HEIGHT//2 - legend_text.get_height()//2)
 
 White_pos = (WIDTH // 2 - White_text.get_width() // 2, HEIGHT//2.5)
 Black_pos = (WIDTH // 2 - Black_text.get_width() // 2, HEIGHT//2.5)
@@ -149,9 +149,9 @@ while run:
         WIN.blit(background, (0, 0))
         # Blit the menu options
         WIN.blit(game_header2_text, game_header2_pos)
-        Easy_rect = WIN.blit(Easy_text, Easy_pos)
-        Normal_rect = WIN.blit(Normal_text, Normal_pos)
-        Hard_rect = WIN.blit(Hard_text, Hard_pos)
+        Easy_rect = WIN.blit(easy_text, easy_pos)
+        Normal_rect = WIN.blit(normal_text, normal_pos)
+        Hard_rect = WIN.blit(hard_text, hard_pos)
         legend_rect = WIN.blit(legend_text, legend_pos)
 
     # Update the screen
