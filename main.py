@@ -1,7 +1,7 @@
 import pygame
 from checkers.constants import WIDTH, HEIGHT, SQUARE_SIZE, BLACK, WHITE
 from checkers.game import Game
-from minmax.algorithm import minMax
+from minmax.algorithm import minMax, minMaxWithAB
 
 FPS = 60
 pygame.init()
@@ -19,7 +19,7 @@ clock = pygame.time.Clock()
 game = Game(WIN)
 started = False
 set_leveled = False
-level = None
+depth = None
 
 # Load the font
 h_font = pygame.font.Font(None, 72)
@@ -39,7 +39,7 @@ legend_text = font.render("Legend", True, (255, 255, 255))
 
 White_text = font.render("White Won The Game!", True, (255, 255, 255))
 Black_text = font.render("Black Won The Game!", True, (255, 255, 255))
-play_again_text = font.render("Paly Again", True, (255, 255, 255))
+play_again_text = font.render("Play Again", True, (255, 255, 255))
 
 # Set the position of the menu options
 game_header1_pos = (WIDTH // 2 - game_header1_text.get_width() // 2, HEIGHT//2.5)
@@ -62,7 +62,9 @@ while run:
     clock.tick(FPS)
     
     if game.turn == WHITE:
-        value, new_board = minMax(game.get_board(), level, WHITE, game)
+        #value, new_board = minMax(game.get_board(), depth, WHITE, game)
+        value, new_board = minMaxWithAB(game.get_board(), depth, float('-inf'), float('inf'), WHITE, game)
+
         game.ai_move(new_board)
 
 
@@ -86,7 +88,7 @@ while run:
                     game.reset()
                     started = True
                     set_leveled = False
-                    level = None
+                    depth = None
 
             # Check if the mouse click is on the "Quit" option
             if 'quit_rect' in locals() or 'quit_rect' in globals():
@@ -97,25 +99,25 @@ while run:
             if 'Easy_rect' in locals() or 'Easy_rect' in globals():
                 if Easy_rect.collidepoint(event.pos):
                     # set the level depth of min-max
-                    level = 1
+                    depth = 1
                     set_leveled = True
 
             if 'Normal_rect' in locals() or 'Normal_rect' in globals():
                 if Normal_rect.collidepoint(event.pos):
                     # set the level depth of min-max
-                    level = 2
+                    depth = 2
                     set_leveled = True
 
             if 'Hard_rect' in locals() or 'Hard_rect' in globals():
                 if Hard_rect.collidepoint(event.pos):
                     # set the level depth of min-max
-                    level = 3
+                    depth = 3
                     set_leveled = True
 
             if 'legend_rect' in locals() or 'legend_rect' in globals():
                 if legend_rect.collidepoint(event.pos):
                     # set the level depth of min-max
-                    level = 4
+                    depth = 4
                     set_leveled = True
 
             # Starting the game
