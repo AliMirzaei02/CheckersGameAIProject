@@ -1,7 +1,7 @@
 import pygame
 from checkers.constants import WIDTH, HEIGHT, SQUARE_SIZE, BLACK, WHITE
 from checkers.game import Game
-from minmax.algorithm import minMax, minMaxWithAB
+from minmax.algorithm import minMax, minMaxWithAB, beamSearch
 
 FPS = 60
 pygame.init()
@@ -63,7 +63,8 @@ while run:
     
     if game.turn == WHITE:
         #value, new_board = minMax(game.get_board(), depth, WHITE, game)
-        value, new_board = minMaxWithAB(game.get_board(), depth, float('-inf'), float('inf'), WHITE, game)
+        #value, new_board = minMaxWithAB(game.get_board(), depth, float('-inf'), float('inf'), WHITE, game)
+        value, new_board = beamSearch(game.get_board(), depth, 3, WHITE, game)
 
         game.ai_move(new_board)
 

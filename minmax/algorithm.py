@@ -7,7 +7,7 @@ WHITE = (255, 255, 255)
 
 def minMax(position, depth, max_player, game):
     if depth == 0 or position.winner() != None:
-        return position.evaluate(), position
+        return position.heuristic(), position
 
     if max_player:
         maxEval = float('-inf')
@@ -33,7 +33,7 @@ def minMax(position, depth, max_player, game):
 
 def minMaxWithAB(position, depth, alpha, beta, max_player, game):
     if depth == 0 or position.winner() is not None:
-        return position.evaluate(), position
+        return position.heuristic(), position
 
     if max_player:
         maxEval = float('-inf')
@@ -58,6 +58,49 @@ def minMaxWithAB(position, depth, alpha, beta, max_player, game):
                 break
             if minEval < beta:
                 beta = minEval
+                best_move = move
+
+        return minEval, best_move
+
+
+def beamSearch(position, depth, beam_width, max_player, game):
+    if depth == 0 or position.winner() is not None:
+        return position.heuristic(), position
+
+    if max_player:
+        maxEval = float('-inf')
+        best_moves = []
+        best_move = None
+        for move in successors(position, WHITE, game):
+            evaluation = move.heuristic()
+            best_moves.append((evaluation, move))
+
+        best_moves.sort(reverse=True, key=lambda x: x[0])
+        selected_moves = best_moves[:beam_width]
+
+        for _, move in selected_moves:
+            eval = beamSearch(move, depth - 1, beam_width, False, game)[0]
+            maxEval = max(maxEval, eval)
+            if maxEval == eval:
+                best_move = move
+
+        return maxEval, best_move
+
+    else:
+        minEval = float('inf')
+        best_moves = []
+        best_move = None
+        for move in successors(position, BLACK, game):
+            evaluation = move.heuristic()
+            best_moves.append((evaluation, move))
+
+        best_moves.sort(key=lambda x: x[0])
+        selected_moves = best_moves[:beam_width]
+
+        for _, move in selected_moves:
+            eval = beamSearch(move, depth - 1, beam_width, True, game)[0]
+            minEval = min(minEval, eval)
+            if minEval == eval:
                 best_move = move
 
         return minEval, best_move

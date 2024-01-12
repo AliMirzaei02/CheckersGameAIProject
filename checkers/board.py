@@ -15,7 +15,7 @@ class Board:
             for col in range(row % 2, COLS, 2):
                 pygame.draw.rect(win, LIGHT_BROWN, (row*SQUARE_SIZE, col *SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
 
-    def evaluate(self):
+    def heuristic(self):
         return self.white_left - self.black_left + (self.white_kings * 0.5 - self.black_kings * 0.5)
 
     def get_all_pieces(self, color):
